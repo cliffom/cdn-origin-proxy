@@ -1,0 +1,11 @@
+node_modules
+.DS_Store
+.env
+.env.local
+logs
+*.log
+pids
+*.pid
+*.seed
+.lock-wscript
+npm-debug.log
