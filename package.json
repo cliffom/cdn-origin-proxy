@@ -1,6 +1,6 @@
 {
   "name": "cdn-origin-proxy",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "CDN proxy to use multiple origins",
   "main": "index.js",
   "scripts": {
