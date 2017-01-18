@@ -1,0 +1,22 @@
+# language versions
+machine:
+  services:
+    - docker
+  node:
+    version: 7.4
+
+dependencies:
+  override:
+    - echo 'dependencies are disabled'
+
+test:
+  override:
+    - echo 'tests are disabled'
+
+deployment:
+    production:
+        tag: /release-.*/
+        commands:
+            - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
+            - docker build -t cliffom/cdn-origin-proxy .
+            - docker push cliffom/cdn-origin-proxy
