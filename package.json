@@ -4,7 +4,7 @@
   "description": "CDN proxy to use multiple origins",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "eslint ./**/*.js *.js",
     "start": "node ./bin/www"
   },
   "author": "Michael Clifford <cliffom@gmail.com>",
@@ -13,5 +13,8 @@
     "express": "^4.14.0",
     "got": "^6.7.1",
     "newrelic": "^1.36.1"
+  },
+  "devDependencies": {
+    "eslint": "^3.13.1"
   }
 }

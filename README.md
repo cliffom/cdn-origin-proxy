@@ -18,5 +18,5 @@ CDN
 
 ## Testing
 ```
-docker-compose run --rm node npm test
+npm run test
 ```
