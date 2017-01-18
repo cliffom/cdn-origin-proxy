@@ -1,38 +1,37 @@
-const express = require('express')
+const express = require("express")
+const got = require("got")
 const router = express.Router()
-const got = require('got')
+const winston = require("winston")
+winston.level = process.env.LOG_LEVEL ? process.env.LOG_LEVEL : "debug"
 
 const bucket_legacy = process.env.BUCKET_LEGACY
 const bucket_new = process.env.BUCKET_NEW
 
 /* health check */
-router.get('/_alive', function(req, res) {
+router.get("/_alive", function(req, res) {
   res.send("I'm still alive")
 })
 
 /* Origin searching */
-router.get('*', function(req, res) {
+router.get("*", function(req, res) {
   const url_legacy = bucket_legacy + req.url
   const url_new = bucket_new + req.url
 
   got.head(url_new)
     .then((response) => {
-      load_image_from_url(res, url_new)
+      res.redirect(response.requestUrl)
     })
     .catch(error => {
+      winston.log("info", error.path + " not found on bucket_new")
       got.head(url_legacy)
         .then((response) => {
-          load_image_from_url(res, url_legacy)
+          res.redirect(response.requestUrl)
         })
         .catch(error => {
-          console.log(req.url + ' cannot be found.')
-          res.status(404).send('Not Found')
+          winston.log("info", error.path + " not found on bucket_legacy")
+          res.status(error.statusCode).send(error.statusMessage)
         })
     })
 })
-
-function load_image_from_url(res, url) {
-  res.redirect(url)
-}
 
 module.exports = router

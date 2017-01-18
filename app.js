@@ -1,9 +1,9 @@
-require('newrelic')
-const express = require('express')
+require("newrelic")
+const express = require("express")
 const app = express()
 
-const index = require('./routes/index')
+const index = require("./routes/index")
 
-app.use('/', index)
+app.use("/", index)
 
 module.exports = app
