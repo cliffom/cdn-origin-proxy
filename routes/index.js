@@ -29,7 +29,7 @@ router.get("*", function(req, res) {
         })
         .catch(error => {
           winston.log("info", error.path + " not found on bucket_legacy")
-          res.status(error.statusCode).send(error.statusMessage)
+          res.status(404).send(error.message)
         })
     })
 })
